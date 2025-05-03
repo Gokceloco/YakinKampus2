@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameDirector gameDirector;
     public float speed;
 
     public PlayerState playerState;
@@ -11,7 +12,7 @@ public class Player : MonoBehaviour
 
     public Transform cameraHolder;
 
-    void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
@@ -57,13 +58,23 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             gameObject.SetActive(false);
         }
+        if (collision.gameObject.CompareTag("Apple"))
+        {
+            collision.gameObject.SetActive(false);
+            gameDirector.gamePlayState = GamePlayState.AppleCollected;
+        }
     }
 
-    
+    internal void RestartPlayer()
+    {
+        gameObject.SetActive(true);
+        _rb.position = new Vector3(0,0,-8);
+        transform.rotation = Quaternion.identity;
+    }
 }
 
 
