@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private GameDirector _gameDirector;
+    public float speed;
+ 
+    private Rigidbody _rb;
+    public bool isBeingPushed;
 
-    public void StartEnemy(GameDirector gameDirector)
+    private void Awake()
     {
-        _gameDirector = gameDirector;
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (_gameDirector.gamePlayState == GamePlayState.AppleCollected)
+        if (GameDirector.instance.gamePlayState == GamePlayState.AppleCollected && !isBeingPushed)
         {
             FollowPlayer();
         }
@@ -20,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     private void FollowPlayer()
     {
-        print("In Player Follow");
+        var direction = GameDirector.instance.player.transform.position - transform.position;
+        _rb.linearVelocity = direction.normalized * speed;
     }
 }

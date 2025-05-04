@@ -67,6 +67,11 @@ public class Player : MonoBehaviour
             collision.gameObject.SetActive(false);
             gameDirector.gamePlayState = GamePlayState.AppleCollected;
         }
+        if (collision.gameObject.CompareTag("EscapeDoor") 
+            && gameDirector.gamePlayState == GamePlayState.AppleCollected)
+        {
+            gameDirector.gamePlayState = GamePlayState.PlayerEscaped;           
+        }
     }
 
     internal void RestartPlayer()

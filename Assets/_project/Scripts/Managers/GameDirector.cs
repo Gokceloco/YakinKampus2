@@ -3,12 +3,17 @@ using UnityEngine;
 
 public class GameDirector : MonoBehaviour
 {
+    public static GameDirector instance;
 
-    
     public LevelManager levelManager;
     public Player player;
 
     public GamePlayState gamePlayState;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -25,6 +30,7 @@ public class GameDirector : MonoBehaviour
 
     private void RestartLevel()
     {
+        gamePlayState = GamePlayState.AppleNotCollected;
         levelManager.RestartLevelManager();
         player.RestartPlayer();
     }
