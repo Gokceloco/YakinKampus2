@@ -7,9 +7,7 @@ public class PushBeacon : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            var direction = transform.position - collision.transform.position;
-            collision.gameObject.GetComponent<Enemy>().PushEnemy(direction * pushForce);
-            print(direction);            
+                  
 
         }
     }
