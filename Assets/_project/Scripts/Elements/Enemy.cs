@@ -21,6 +21,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void GetPushedByBeacon(Vector3 dir, float pushPower)
+    {
+        isBeingPushed = true;
+        _rb.linearVelocity = dir * pushPower;
+        Invoke(nameof(DisableIsBeingPushed), 1f);
+    }
+
+    void DisableIsBeingPushed()
+    {
+        isBeingPushed = false;
+    }
+
     private void FollowPlayer()
     {
         var direction = GameDirector.instance.player.transform.position - transform.position;
